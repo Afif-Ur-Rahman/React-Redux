@@ -1,42 +1,80 @@
-#root {
-  max-width: 1280px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: fit-content;
+}
+
+form {
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  border: 2px solid #535bf2;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 0.5rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.textArea {
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+button {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  border-color: #646cff;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+button:hover {
+  color: #f9f9f9;
+  background-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto #646cff;
 }
 
-.card {
-  padding: 2em;
+/* Create Btn */
+.createBtn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
-.read-the-docs {
-  color: #888;
+.createBtn span:before {
+  content: '\f00c';
+  font-family: 'Font Awesome 6 Solid';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: 20px;
+  transition: 0.5s;
+}
+
+.createBtn:hover span {
+  padding-left: 25px;
+}
+
+.createBtn:hover span:before {
+  opacity: 1;
+  right: 0;
 }

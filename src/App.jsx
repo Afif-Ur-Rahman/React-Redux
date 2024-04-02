@@ -1,13 +1,15 @@
-// import { useState } from 'react'
+import React from 'react'
 import './App.css'
+import Todos from './components/Todos'
 
-function App() {
+const App = () => {
 
   return (
     <>
-      <h2>Learning Redux Toolkit</h2>
+      <h2 className='my-3 text-center'>Learning Redux Toolkit</h2>
+      <Todos />
     </>
   )
 }
 
-export default App
+export default App;
