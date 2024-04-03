@@ -4,17 +4,28 @@
   box-sizing: border-box;
 }
 
-.container {
-  width: fit-content;
+.todos {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 2px dashed gray;
+  overflow: auto;
+  height: 75vh;
+  width: 70%;
 }
 
 form {
-  width: 100%;
+  width: max-content;
   margin: 0 auto;
   border: 2px solid #535bf2;
   border-radius: 10px;
   overflow: hidden;
   padding: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f9f9f9;
 }
 
 .textArea {
@@ -34,7 +45,8 @@ a:hover {
 button {
   border-radius: 10px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.3em 0.8em;
+  margin: 0 2.5px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -61,13 +73,13 @@ button:focus-visible {
 }
 
 .createBtn span:before {
-  content: '\f00c';
-  font-family: 'Font Awesome 6 Solid';
+  content: "📝";
   position: absolute;
   opacity: 0;
-  top: 0;
-  right: 20px;
+  top: 50%;
+  left: 0%;
   transition: 0.5s;
+  transform: translateY(-50%);
 }
 
 .createBtn:hover span {
@@ -76,5 +88,84 @@ button:focus-visible {
 
 .createBtn:hover span:before {
   opacity: 1;
-  right: 0;
+}
+
+/* Cancel Btn */
+.cancelBtn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.cancelBtn span:before {
+  content: "❌";
+  position: absolute;
+  opacity: 0;
+  top: 50%;
+  left: 0%;
+  transition: 0.5s;
+  transform: translateY(-50%);
+}
+
+.cancelBtn:hover span {
+  padding-left: 25px;
+}
+
+.cancelBtn:hover span:before {
+  opacity: 1;
+}
+
+thead {
+  border-bottom: 2px solid black;
+}
+
+.delete {
+  border: 1px solid #535bf2;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: TRANSLATE(-50%, -50%);
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+/* Delete Btn */
+.deleteBtn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.deleteBtn span:before {
+  content: "🗑️";
+  position: absolute;
+  opacity: 0;
+  top: 50%;
+  left: 0%;
+  transition: 0.5s;
+  transform: translateY(-50%);
+}
+
+.deleteBtn:hover span {
+  padding-left: 25px;
+}
+
+.deleteBtn:hover span:before {
+  opacity: 1;
+}
+
+.addIcon {
+  width: fit-content;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: flex;
+  padding: 2px;
+  background-color: black;
 }

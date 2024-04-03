@@ -1,49 +1,113 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTodo, editTodo } from "../features/sliceReducer";
+import { removeTodo, clearTodo } from "../features/sliceReducer";
 import AddTodo from "./AddTodo";
-import AddIcon from "../assets/Add.svg";
+import { AddIcon, EditIcon, DeleteIcon } from "../assets/Icons.jsx";
 
 const Todos = () => {
   const todos = useSelector((state) => state.todos);
-  const [addTodo, setAddTodo] = useState(false);
   const dispatch = useDispatch();
+  const [input, setInput] = useState("");
+  const [addTodo, setAddTodo] = useState(false);
+  const [newId, setNewId] = useState(null);
+  const [deleted, setDeleted] = useState(false);
+
+  const handleDeleteTodo = (id) => {
+    dispatch(id ? removeTodo(id) : clearTodo());
+    setNewId(null);
+  };
 
   return (
     <>
-      {addTodo && <AddTodo setAddTodo={setAddTodo} />}
-      <div className="container">
-        <h4 className="text-center">Todos</h4>
+      {addTodo && (
+        <AddTodo
+          input={input}
+          setInput={setInput}
+          setAddTodo={setAddTodo}
+          newId={newId}
+          setNewId={setNewId}
+        />
+      )}
+      <h4 className="text-center">Todos</h4>
+      <div className="container todos">
         <table className="table table-striped">
           <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Content</th>
               <th scope="col">
-                <AddIcon onClick={() => setAddTodo(true)} />
+                <div
+                  style={{ display: "flex", justifyContent: "center" }}
+                  onClick={() => {
+                    setAddTodo(true);
+                  }}
+                >
+                  <div className="addIcon">
+                    <AddIcon />
+                  </div>
+                </div>
               </th>
-              <th scope="col">&#x1F5D1;</th>
+              <th scope="col">
+                <div onClick={() => setDeleted(true)}>
+                  <DeleteIcon />
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {todos?.map((todo, index) => {
+            {todos?.map((todo) => (
               <tr key={todo.id}>
-                <th>{index + 1}</th>
                 <td>{todo.text}</td>
                 <td>
-                  <div onClick={() => dispatch(editTodo(todo.id))}>
-                    &#x270E;
+                  <div
+                    className="editIcon"
+                    onClick={() => {
+                      setNewId(todo.id);
+                      setAddTodo(true);
+                      setInput(todo.text);
+                    }}
+                  >
+                    <EditIcon />
                   </div>
                 </td>
                 <td>
-                  <div onClick={() => dispatch(removeTodo(todo.id))}>
-                    &#x1F5D1;
+                  <div
+                    onClick={() => {
+                      setDeleted(true);
+                      setNewId(todo.id);
+                    }}
+                  >
+                    <DeleteIcon />
                   </div>
                 </td>
-              </tr>;
-            })}
+              </tr>
+            ))}
           </tbody>
         </table>
+        {deleted && (
+          <div className="delete">
+            <p>Are you Sure to Delete{!newId ? " All" : ""}?</p>
+            <div>
+              <button
+                className="deleteBtn"
+                onClick={() => {
+                  handleDeleteTodo(newId);
+                  setDeleted(false);
+                }}
+              >
+                <span>Yes</span>
+              </button>
+              <button
+                className="cancelBtn"
+                onClick={() => {
+                  setDeleted(false);
+                  setNewId(null);
+                }}
+              >
+                <span>No</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

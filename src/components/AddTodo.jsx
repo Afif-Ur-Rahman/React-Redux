@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+// import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../features/sliceReducer";
-import PropTypes from 'prop-types'
+import { addTodo, editTodo } from "../features/sliceReducer";
+import PropTypes from "prop-types";
 
-const AddTodo = ( { setAddTodo } ) => {
-  const [input, setInput] = useState("");
+const AddTodo = ({ setAddTodo, input, setInput, newId, setNewId }) => {
+  
   const dispatch = useDispatch();
 
   const handleAddTodo = (e) => {
     e.preventDefault();
     dispatch(addTodo(input));
     setInput("");
+    setAddTodo(false);
+  };
+
+  const handleEditTodo = (id) => {
+    dispatch(editTodo({id, input}));
+    setInput("");
+    setAddTodo(false);
+    setNewId(null);
   };
 
   return (
     <>
       <div className="container">
-        <form onSubmit={handleAddTodo}>
+        <form>
           <h5 className="text-center">Add Todo</h5>
           <div className="textArea mb-3">
             <label htmlFor="text" className="form-label">
@@ -30,8 +38,12 @@ const AddTodo = ( { setAddTodo } ) => {
               onChange={(e) => setInput(e.target.value)}
             />
           </div>
-          <button type="submit" className="createBtn">
-            <span>Create Todo</span>
+          <button
+            type="submit"
+            className="createBtn"
+            onClick={newId? handleEditTodo(newId) : handleAddTodo}
+          >
+            <span>{newId? "Update" : "Create"} Todo</span>
           </button>
           <button className="cancelBtn" onClick={() => setAddTodo(false)}>
             <span>Cancel</span>
@@ -43,7 +55,11 @@ const AddTodo = ( { setAddTodo } ) => {
 };
 
 AddTodo.propTypes = {
-    setAddTodo: PropTypes.func.isRequired,
-  };
+  setAddTodo: PropTypes.func,
+  input: PropTypes.string,
+  setInput: PropTypes.func,
+  setNewId: PropTypes.func,
+  newId: PropTypes.string,
+};
 
 export default AddTodo;
