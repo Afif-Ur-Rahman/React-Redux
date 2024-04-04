@@ -1,19 +1,26 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodo, editTodo } from "../features/sliceReducer";
 import PropTypes from "prop-types";
 
 const AddTodo = ({ setAddTodo, input, setInput, newId, setNewId }) => {
   const dispatch = useDispatch();
+  const [isError, setIsError] = useState(false);
 
   const handleAddTodo = (e) => {
     e.preventDefault();
+    if (input.length < 1) {
+      return setIsError(true);
+    }
     dispatch(addTodo(input));
     setInput("");
     setAddTodo(false);
   };
 
   const handleEditTodo = async (id) => {
+    if (input.length < 1) {
+      return setIsError(true);
+    }
     dispatch(editTodo({ id, input }));
     setInput("");
     setNewId(null);
@@ -34,8 +41,14 @@ const AddTodo = ({ setAddTodo, input, setInput, newId, setNewId }) => {
               className="form-control"
               id="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                setInput(e.target.value);
+                setIsError(false);
+              }}
             />
+            {isError && (
+              <span style={{ color: "red" }}>Todo cannot be Empty!</span>
+            )}
           </div>
           <button
             type="submit"
