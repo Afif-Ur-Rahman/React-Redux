@@ -4,7 +4,6 @@ import { addTodo, editTodo } from "../features/sliceReducer";
 import PropTypes from "prop-types";
 
 const AddTodo = ({ setAddTodo, input, setInput, newId, setNewId }) => {
-  
   const dispatch = useDispatch();
 
   const handleAddTodo = (e) => {
@@ -14,11 +13,11 @@ const AddTodo = ({ setAddTodo, input, setInput, newId, setNewId }) => {
     setAddTodo(false);
   };
 
-  const handleEditTodo = (id) => {
-    dispatch(editTodo({id, input}));
+  const handleEditTodo = async (id) => {
+    dispatch(editTodo({ id, input }));
     setInput("");
-    setAddTodo(false);
     setNewId(null);
+    setAddTodo(false);
   };
 
   return (
@@ -41,11 +40,18 @@ const AddTodo = ({ setAddTodo, input, setInput, newId, setNewId }) => {
           <button
             type="submit"
             className="createBtn"
-            onClick={newId? handleEditTodo(newId) : handleAddTodo}
+            onClick={newId ? () => handleEditTodo(newId) : handleAddTodo}
           >
-            <span>{newId? "Update" : "Create"} Todo</span>
+            <span>{newId ? "Update" : "Create"} Todo</span>
           </button>
-          <button className="cancelBtn" onClick={() => setAddTodo(false)}>
+          <button
+            className="cancelBtn"
+            onClick={() => {
+              setAddTodo(false);
+              setNewId(null);
+              setInput("");
+            }}
+          >
             <span>Cancel</span>
           </button>
         </form>

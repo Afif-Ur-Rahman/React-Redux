@@ -12,7 +12,7 @@ const todoSlice = createSlice({
         id: nanoid(),
         text: action.payload,
       };
-      state.todos.push(todo);
+      state.todos.unshift(todo);
     },
     removeTodo: (state, action) => {
       const id = action.payload;
