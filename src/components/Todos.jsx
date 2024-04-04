@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTodo, clearTodo } from "../features/sliceReducer";
+import { removeTodo, removeAllTodo } from "../features/sliceReducer";
 import AddTodo from "./AddTodo";
 import { AddIcon, EditIcon, DeleteIcon } from "../assets/Icons.jsx";
 
@@ -13,7 +13,7 @@ const Todos = () => {
   const [deleted, setDeleted] = useState(false);
 
   const handleDeleteTodo = (id) => {
-    dispatch(id ? removeTodo(id) : clearTodo());
+    dispatch(id ? removeTodo(id) : removeAllTodo());
     setNewId(null);
   };
 

@@ -17,11 +17,12 @@ const AddTodo = ({ setAddTodo, input, setInput, newId, setNewId }) => {
     setAddTodo(false);
   };
 
-  const handleEditTodo = async (id) => {
+  const handleEditTodo = (e) => {
+    e.preventDefault();
     if (input.length < 1) {
       return setIsError(true);
     }
-    dispatch(editTodo({ id, input }));
+    dispatch(editTodo({ id: newId, input }));
     setInput("");
     setNewId(null);
     setAddTodo(false);
@@ -51,9 +52,9 @@ const AddTodo = ({ setAddTodo, input, setInput, newId, setNewId }) => {
             )}
           </div>
           <button
-            type="submit"
+            type="button"
             className="createBtn"
-            onClick={newId ? () => handleEditTodo(newId) : handleAddTodo}
+            onClick={newId ? handleEditTodo : handleAddTodo}
           >
             <span>{newId ? "Update" : "Create"} Todo</span>
           </button>

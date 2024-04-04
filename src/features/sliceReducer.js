@@ -25,11 +25,11 @@ const todoSlice = createSlice({
       );
       state.todos = updateTodo;
     },
-    clearTodo: (state) => {
+    removeAllTodo: (state) => {
       state.todos = []
     }
   },
 });
 
-export const { addTodo, removeTodo, editTodo, clearTodo } = todoSlice.actions;
+export const { addTodo, removeTodo, editTodo, removeAllTodo } = todoSlice.actions;
 export default todoSlice.reducer;
