@@ -6,7 +6,7 @@ const App = () => {
 
   return (
     <>
-      <h2 className='my-3 text-center'>Learning Redux Toolkit</h2>
+      <h2 className='my-3 text-center'>Todos with Redux Toolkit</h2>
       <Todos />
     </>
   )

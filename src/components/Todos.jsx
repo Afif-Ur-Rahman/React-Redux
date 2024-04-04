@@ -28,7 +28,6 @@ const Todos = () => {
           setNewId={setNewId}
         />
       )}
-      <h4 className="text-center">Todos</h4>
       <div className="container todos">
         <table className="table table-striped">
           <thead>
